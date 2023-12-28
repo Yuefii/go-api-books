@@ -11,11 +11,12 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.GET("/", nameHandler)
-	router.GET("/hello", helloHandler)
-	router.GET("/api/books/:id", bookHandler)
-	router.GET("/api/books", queryHandler)
-	router.POST("/api/books", postBooksHandler)
+	v1 := router.Group("/v1")
+
+	v1.GET("/books/:id", bookHandler)
+	v1.GET("/books", queryHandler)
+	v1.POST("/books", postBooksHandler)
+
 	router.Run(":8080")
 }
 
@@ -64,17 +65,4 @@ func queryHandler(c *gin.Context) {
 func bookHandler(c *gin.Context) {
 	id := c.Param("id")
 	c.JSON(http.StatusOK, gin.H{"id": id})
-}
-
-func nameHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"name": "Muhamad Mupid Ahmadiawan",
-		"bio":  "a Fullstack Engineer",
-	})
-}
-func helloHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"title":    "Belajar Golang",
-		"subtitle": "Belajar Membuat Rest Api Menggunakan Golang.",
-	})
 }
