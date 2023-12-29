@@ -17,7 +17,7 @@ func main() {
 		log.Fatal("failed to connect to database:", err)
 	}
 
-	db.AutoMigrate(&models.User{}, &models.Category{}, &models.Book{})
+	db.AutoMigrate(&models.User{}, &models.Category{}, &models.Book{}, &models.Sale{}, &models.Rental{})
 
 	router := gin.Default()
 

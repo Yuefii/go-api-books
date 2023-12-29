@@ -1,19 +1,13 @@
 package models
 
-import "time"
-
-type BookInput struct {
-	Title    string `json:"title" binding:"required"`
-	SubTitle string `json:"subtitle" binding:"required"`
-	Price    int    `json:"price" binding:"required"`
-}
-
 type Book struct {
-	ID          int
-	Title       string
-	Description string
-	Price       int
-	Rating      int
-	CreatedAt   time.Time
-	UpdateAt    time.Time
+	ID          uint     `gorm:"primaryKey" json:"id"`
+	Title       string   `json:"title"`
+	Author      string   `json:"author"`
+	Description string   `json:"description"`
+	Price       float64  `json:"price"`
+	Rating      int      `json:"rating"`
+	Stock       int      `json:"stock"`
+	Category    Category `gorm:"foreignKey:CategoryID" json:"category"`
+	CategoryID  *uint    `json:"category_id"`
 }
