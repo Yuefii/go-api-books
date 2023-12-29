@@ -24,7 +24,9 @@ func main() {
 
 	v1.GET("/books/:id", handler.GetBookByID)
 	v1.GET("/books", handler.GetAllBooks)
-	v1.POST("/books", handler.PostBooksHandler)
+	v1.POST("/books", handler.PostBook)
+	v1.PATCH("/books/:id", handler.UpdateBook)
+	v1.DELETE("/books/:id", handler.DeleteBook)
 
 	router.Run(":8080")
 }
