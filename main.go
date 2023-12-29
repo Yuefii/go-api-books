@@ -31,6 +31,8 @@ func main() {
 	v1.GET("/categories", handler.GetAllCategory)
 	v1.GET("/categories/:id", handler.GetCategoryByID)
 	v1.POST("/categories", handler.PostCategory)
+	v1.PATCH("/categories/:id", handler.UpdateCategory)
+	v1.DELETE("/categories/:id", handler.DeleteCategory)
 
 	router.Run(":8080")
 }
