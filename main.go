@@ -16,7 +16,7 @@ func main() {
 		log.Fatal("failed to connect to database:", err)
 	}
 
-	db.AutoMigrate(&models.Category{})
+	db.AutoMigrate(&models.User{}, &models.Category{}, &models.Book{})
 
 	router := gin.Default()
 
@@ -33,6 +33,11 @@ func main() {
 	v1.POST("/categories", handler.PostCategory)
 	v1.PATCH("/categories/:id", handler.UpdateCategory)
 	v1.DELETE("/categories/:id", handler.DeleteCategory)
+
+	auth := router.Group("/auth")
+
+	auth.POST("/register", handler.Register)
+	auth.POST("/login", handler.Login)
 
 	router.Run(":8080")
 }
