@@ -3,6 +3,7 @@ package main
 import (
 	"go-api-books/config"
 	"go-api-books/handler"
+	"go-api-books/middlewares"
 	"go-api-books/models"
 	"log"
 
@@ -33,6 +34,14 @@ func main() {
 	v1.POST("/categories", handler.PostCategory)
 	v1.PATCH("/categories/:id", handler.UpdateCategory)
 	v1.DELETE("/categories/:id", handler.DeleteCategory)
+
+	authMW := router.Group("/v1/user")
+	authMW.Use(middlewares.AuthMiddleware())
+	{
+		authMW.GET("/", handler.GetUser)
+		authMW.PATCH("/update", handler.UpdateUser)
+		authMW.DELETE("/delete", handler.DeleteUser)
+	}
 
 	auth := router.Group("/auth")
 
